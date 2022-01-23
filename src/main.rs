@@ -22,8 +22,8 @@ fn main() {
     let cursor = Cursor::new(Vec::new());
     let mut archive = ZipWriter::new(cursor);
 
-    files.iter().for_each(|file| {
-        archive.start_file(*file, arc_opt.clone()).unwrap();
+    files.iter().for_each(|&file| {
+        archive.start_file(file, arc_opt.clone()).unwrap();
 
         let mut file_buf: Vec<u8> = Vec::new();
 
@@ -36,5 +36,5 @@ fn main() {
 
     let archive_path = Path::new("file.zip");
 
-    File::create(archive_path).unwrap().write_all(data.into_inner().as_ref()).unwrap();
+    File::create(&archive_path).unwrap().write_all(data.into_inner().as_ref()).unwrap();
 }
